@@ -22,6 +22,7 @@ int candidate_count;
 // Function prototypes
 bool vote(string name);
 void print_winner(void);
+void sort_candidate(void);
 
 int main(int argc, string argv[])
 {
@@ -82,36 +83,31 @@ bool vote(string name)
 void print_winner(void)
 {
     // TODO
-    int max_vote = 0;
-    int winner = 0;
-    int tie_counter = 1;
+
+    sort_candidate();
+
     for (int i = 0; i < candidate_count; i++)
     {
-        if (candidates[i].votes > max_vote)
-        {
-            max_vote = candidates[i].votes;
-            winner = i;
-        }
-    }
-    for (int i = 0; i < candidate_count - 1; i++)
-    {
-        if (candidates[i].votes == candidates[i + 1].votes)
-        {
-            tie_counter++;
-        }
-    }
-
-    if (tie_counter == candidate_count)
-    {
-        for (int i = 0; i < candidate_count; i++)
+        if (candidates[i].votes == candidates[candidate_count - 1].votes)
         {
             printf("%s\n", candidates[i].name);
         }
     }
-    else
-    {
-        printf("%s\n",candidates[winner].name);
-    }
-
     return;
+}
+
+void sort_candidate(void)
+{
+    for (int i = 0; i < candidate_count; i++)
+    {
+        for (int j = i + 1; j < candidate_count; j++)
+        {
+            if (candidates[j].votes < candidates[i].votes)
+            {
+                candidate temp = candidates[i];
+                candidates[i] = candidates[j];
+                candidates[j] = temp;
+            }
+        }
+    }
 }
