@@ -22,5 +22,9 @@ for char in range(0,len(text)):
 average_number_of_letters = 100 * (letter_sum / word_sum);
 average_number_of_sentences = 100 * (sentences_sum / word_sum);
 index = 0.0588 * average_number_of_letters - 0.296 * average_number_of_sentences - 15.8;
-
-print(f"Grade {int(index)}")
+if round(index) > 16:
+    print("Grade 16+")
+elif round(index) < 1:
+    print("Before Grade 1")
+else:
+    print(f"Grade {round(index)}")
